@@ -1,10 +1,10 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class LightState(Enum):
+class LightState(StrEnum):
     RED = '🔴'
     YELLOW = '🟡'
     GREEN = '🟢'
 
-    def __repr__(self) -> None:
+    def __repr__(self) -> str:
         return self.value
