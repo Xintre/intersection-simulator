@@ -1,7 +1,7 @@
 from enum import StrEnum
 
 
-class LightState(StrEnum):
+class LightsState(StrEnum):
     RED = '🔴'
     YELLOW = '🟡'
     GREEN = '🟢'
