@@ -9,3 +9,10 @@ class BasicStrategy(ABC):
         Updates intersection lights basing on applied strategy.
         """
         pass
+
+    @staticmethod
+    def check_and_delete_obsolete_cars(crossing_state: CrossingState) -> None:
+        """
+        Checks and deletes cars from the intersection.
+        """
+        pass

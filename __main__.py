@@ -17,10 +17,14 @@ crossing_state.add_car(car_2)
 crossing_state.add_car(car_3)
 crossing_state.add_car(car_4)
 
-config.round_ct: int = 0
 while True:
+    if crossing_state.check_if_there_are_any_cars():
+        print(crossing_state)
+        print('No more cars at the intersection🚗')
+        break
     print(f'==================== Round {config.round_ct} ====================')
     print(crossing_state)
     MostCarsWinStrategy.change_lights(crossing_state=crossing_state)
+    crossing_state.check_and_delete_obsolete_cars()
     config.round_ct += 1
     sleep(1.5)
