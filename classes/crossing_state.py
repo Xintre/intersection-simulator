@@ -9,12 +9,10 @@ from type_hints import LightsStateType, CarsCounterType
 class CrossingState:
     lights_state: LightsStateType
     cars_counter: CarsCounterType
-    round_ct: int
 
     def __init__(self) -> None:
         self.lights_state = N_S_LIGHTS_GREEN
         self.cars_counter = STARTING_CARS_COUNTER
-        self.round_ct = 0
 
     def __repr__(self) -> str:
         self.show_lights()
@@ -24,9 +22,6 @@ class CrossingState:
         print('Lights🚦')
         print('\n'.join([*['{}:{}'.format(direction, light)
               for direction, light in self.lights_state.items()]]))
-
-    def update_round_ct(self) -> None:
-        self.round_ct += 1
 
     def add_car(self, car: Car) -> None:
         self.cars_counter[car.start] += 1
