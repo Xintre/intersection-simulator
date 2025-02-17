@@ -1,4 +1,4 @@
-from direction import Direction
+from classes.direction import Direction
 
 
 class Car:

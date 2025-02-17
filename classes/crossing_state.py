@@ -1,7 +1,7 @@
 from typing import Dict
-from direction import Direction
-from light_state import LightsState
-from car import Car
+from classes.direction import Direction
+from classes.light_state import LightsState
+from classes.car import Car
 
 class CrossingState:
     lights_state: Dict[Direction, LightsState]
