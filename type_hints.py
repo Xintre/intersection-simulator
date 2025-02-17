@@ -1,5 +1,4 @@
-from typing import TypeAlias
-from typing import Dict
+from typing import TypeAlias, Dict
 from classes.direction import Direction
 from classes.lights import LightState
 from classes.car import Car
