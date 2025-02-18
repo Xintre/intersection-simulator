@@ -5,17 +5,10 @@ from strategies.most_cars_win_strategy import MostCarsWinStrategy
 from time import sleep
 import config
 
-# TODO change to add cars randomly
 crossing_state: CrossingState = CrossingState()
-car_1: Car = Car(start=Direction.E, destination=Direction.W)
-car_2: Car = Car(start=Direction.E, destination=Direction.W)
-car_3: Car = Car(start=Direction.E, destination=Direction.W)
-car_4: Car = Car(start=Direction.N, destination=Direction.W)
 
-crossing_state.add_car(car_1)
-crossing_state.add_car(car_2)
-crossing_state.add_car(car_3)
-crossing_state.add_car(car_4)
+for i in range(0, 5):
+    crossing_state.add_random_car()
 
 while True:
     if crossing_state.check_if_there_are_any_cars():

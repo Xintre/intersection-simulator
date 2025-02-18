@@ -4,6 +4,7 @@ from .lights import LightState, AllLightsState
 from .car import Car
 from constants import CAR_PASS_CLOCK_TICKS, N_S_LIGHTS_GREEN, STARTING_CARS_COUNTER, E_W_LIGHTS_GREEN
 from type_hints import LightsStateType, CarsCounterType
+from random import choice
 import config
 
 
@@ -49,8 +50,6 @@ class CrossingState:
     def check_if_there_are_any_cars(self) -> bool:
         return sum(self.cars_counter.values()) == 0
 
-# TODO to implement
-
-
-def add_cars_randomly() -> None:
-    pass
+    def add_random_car(self) -> None:
+        self.add_car(Car(start=choice(list(Direction)),
+                     destination=choice(list(Direction))))
