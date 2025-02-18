@@ -1,0 +1,2 @@
+class SimulationEnd(StopIteration):
+    pass
