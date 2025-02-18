@@ -1,11 +1,17 @@
-from typing import Dict
-from .direction import Direction
-from .lights import LightState, AllLightsState
-from .car import Car
-from constants import CAR_PASS_CLOCK_TICKS, N_S_LIGHTS_GREEN, STARTING_CARS_COUNTER, E_W_LIGHTS_GREEN
-from type_hints import LightsStateType, CarsCounterType
 from random import choice
+
 import config
+from constants import (
+    CAR_PASS_CLOCK_TICKS,
+    E_W_LIGHTS_GREEN,
+    N_S_LIGHTS_GREEN,
+    STARTING_CARS_COUNTER,
+)
+from type_hints import CarsCounterType, LightsStateType
+
+from .car import Car
+from .direction import Direction
+from .lights import AllLightsState, LightState
 
 
 class CrossingState:
@@ -18,12 +24,28 @@ class CrossingState:
 
     def __repr__(self) -> str:
         self.show_lights()
-        return '\n'.join(['Crossing state:', *['{}: {}🚗'.format(direction, car_number) for direction, car_number in self.cars_counter.items()]])
+        return '\n'.join(
+            [
+                'Crossing state:',
+                *[
+                    '{}: {}🚗'.format(direction, car_number)
+                    for direction, car_number in self.cars_counter.items()
+                ],
+            ]
+        )
 
     def show_lights(self) -> None:
         print('Lights🚦')
-        print('\n'.join([*['{}:{}'.format(direction, light)
-              for direction, light in self.lights_state.items()]]))
+        print(
+            '\n'.join(
+                [
+                    *[
+                        '{}:{}'.format(direction, light)
+                        for direction, light in self.lights_state.items()
+                    ]
+                ]
+            )
+        )
 
     def add_car(self, car: Car) -> None:
         self.cars_counter[car.start] += 1
@@ -51,5 +73,6 @@ class CrossingState:
         return sum(self.cars_counter.values()) == 0
 
     def add_random_car(self) -> None:
-        self.add_car(Car(start=choice(list(Direction)),
-                     destination=choice(list(Direction))))
+        self.add_car(
+            Car(start=choice(list(Direction)), destination=choice(list(Direction)))
+        )

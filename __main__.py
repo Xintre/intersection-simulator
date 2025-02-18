@@ -1,9 +1,8 @@
-from classes.crossing_state import CrossingState
-from classes.car import Car
-from classes.direction import Direction
-from strategies.most_cars_win_strategy import MostCarsWinStrategy
 from time import sleep
+
 import config
+from classes.crossing_state import CrossingState
+from strategies.most_cars_win_strategy import MostCarsWinStrategy
 
 crossing_state: CrossingState = CrossingState()
 

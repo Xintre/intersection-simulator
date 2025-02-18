@@ -1,4 +1,4 @@
-from enum import StrEnum, Enum, auto
+from enum import Enum, StrEnum, auto
 
 
 class LightState(StrEnum):
@@ -8,6 +8,7 @@ class LightState(StrEnum):
 
     def __repr__(self) -> str:
         return self.value
+
 
 class AllLightsState(Enum):
     N_S_GREEN = auto()
