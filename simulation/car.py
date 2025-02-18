@@ -1,7 +1,9 @@
-from classes.direction import Direction
+from .direction import Direction
 
 
 class Car:
+    """Class representing a car."""
+
     start: Direction
     destination: Direction
     round_ct: int
