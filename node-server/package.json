@@ -1,0 +1,26 @@
+{
+  "name": "intersection-api",
+  "version": "1.0.0",
+  "main": "main.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Xintre",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "config": "^3.3.12",
+    "express": "^4.21.2",
+    "helmet": "^8.0.0",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@types/config": "^3.3.5",
+    "@types/express": "^5.0.0",
+    "@types/lodash": "^4.17.15",
+    "@types/node": "^22.13.4",
+    "jest": "^29.7.0",
+    "prettier": "^3.5.1",
+    "typescript": "^5.7.3"
+  }
+}
