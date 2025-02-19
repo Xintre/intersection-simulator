@@ -6,11 +6,14 @@
 pre-push:
   parallel: true
   jobs:
-    - name: packages audit
-      run: cd node-server && npm audit
+    # - name: packages audit
+    #   run: npm audit
 
     - name: unit tests
-      run: cd node-server && npm test
+      run: yarn test
+
+    - name: stylecheck
+      run: yarn stylecheck
 
 pre-commit:
   parallel: true

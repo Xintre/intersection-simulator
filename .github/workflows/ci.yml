@@ -19,18 +19,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: node-server/.nvmrc
-          cache: npm
-          cache-dependency-path: node-server/package-lock.json
-          working-directory: node-server
+          cache: yarn
 
-      - name: Install npm dependencies
-        run: npm i
-        working-directory: node-server
+      - name: Install yarn dependencies
+        run: yarn
 
       - name: Check style with prettier
-        run: npx prettier --check src/
-        working-directory: node-server
+        run: yarn stylecheck
 
       - name: Run unit tests
-        run: npm test
-        working-directory: node-server
+        run: yarn test
