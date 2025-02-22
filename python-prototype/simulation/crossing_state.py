@@ -4,17 +4,15 @@ from typing import Type
 
 from simulation.config import Config
 
+from .car import Car
+from .constants import (
+    STARTING_CARS_COUNTER,
+)
 from .crossing_connection.base.base_crossing_connection import (
     BaseCrossingConnection,
 )
-from .constants import (
-    CAR_PASS_CLOCK_TICKS,
-    STARTING_CARS_COUNTER,
-)
-from .type_hints import CarsCounterDict, LightsStateDict
-
-from .car import Car
 from .direction import Direction
+from .type_hints import CarsCounterDict, LightsStateDict
 
 
 class CrossingState:
@@ -30,7 +28,7 @@ class CrossingState:
         self.config = Config()
 
         self.crossing_connection = CrossingConnectionImplementation()
-        self.lights_state_dict = self.crossing_connection.getInitialLightsState()
+        self.lights_state_dict = self.crossing_connection.get_initial_lights_state()
 
         self.cars_counter_dict = deepcopy(STARTING_CARS_COUNTER)
 

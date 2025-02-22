@@ -2,7 +2,6 @@ from simulation.direction import Direction
 from simulation.light_state import LightState
 from simulation.type_hints import LightsStateDict
 
-
 N_S_LIGHTS_GREEN: LightsStateDict = {
     Direction.N: LightState.GREEN,
     Direction.S: LightState.GREEN,

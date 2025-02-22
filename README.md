@@ -12,6 +12,8 @@ Please run: `yarn`.
 - `stylecheck` - runs parallelly in each of the workspaces: `stylecheck` package.json script if applicable
 - `python:run` - runs the prototype python script
 - `python:lint` - runs ruff in the python prototype
+- `ts:compile` - runs node tsc in intersection-api/src
+- `ts:run` - runs node main in intersection-api/src
 
 ## Git Hooks
 

@@ -7,7 +7,10 @@
     "stylecheck": "yarn workspaces foreach -Apt run stylecheck",
     "test": "yarn workspaces foreach -Apt run test",
     "python:run": "cd python-prototype && python -m simulation",
-    "python:lint": "cd python-prototype && ruff check"
+    "python:lint": "cd python-prototype && ruff check",
+    "build": "cd intersection-api && yarn build",
+    "dev": "cd intersection-api && yarn dev",
+    "start": "cd intersection-api && yarn start"
   },
   "dependencies": {
     "config": "^3.3.12",

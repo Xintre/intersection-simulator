@@ -1,16 +1,15 @@
 from simulation.constants import ALL_LIGHTS_YELLOW
+from simulation.direction import Direction
+from simulation.type_hints import CarsCounterDict, LightsStateDict
 
 from ...base.base_crossing_connection import (
     BaseCrossingConnection,
 )
-from simulation.direction import Direction
-from simulation.type_hints import CarsCounterDict, LightsStateDict
-
-from .constants import N_S_LIGHTS_GREEN, E_W_LIGHTS_GREEN
+from .constants import E_W_LIGHTS_GREEN, N_S_LIGHTS_GREEN
 
 
 class CrossingConnectAhead(BaseCrossingConnection):
-    def getInitialLightsState(self):
+    def get_initial_lights_state(self):
         return N_S_LIGHTS_GREEN
 
     def move_cars(

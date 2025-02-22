@@ -1,6 +1,5 @@
 from ...crossing_state import CrossingState
 from ...direction import Direction
-
 from ..base.base_switching_strategy import BaseSwitchingStrategy
 
 

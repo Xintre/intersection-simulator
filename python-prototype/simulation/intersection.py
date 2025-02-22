@@ -4,6 +4,7 @@ from simulation.constants import CAR_PASS_CLOCK_TICKS, ONE_ROUND_CLOCK_TICKS
 from simulation.crossing_connection.base.base_crossing_connection import (
     BaseCrossingConnection,
 )
+
 from .config import Config
 from .crossing_state import CrossingState
 from .errors.simulation_end import SimulationEnd

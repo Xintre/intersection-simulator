@@ -4,7 +4,10 @@
 	"main": "main.ts",
 	"scripts": {
 		"test": "npx jest",
-		"stylecheck": "npx prettier --check src/"
+		"stylecheck": "npx prettier --check src/",
+		"build": "tsc",
+		"dev": "npx tsx src/main.ts",
+		"start": "node build/main.js"
 	},
 	"author": "Xintre",
 	"license": "ISC",
@@ -12,7 +15,7 @@
 	"devDependencies": {
 		"@types/node": "^22.13.4",
 		"jest": "*",
+		"prettier": "*",
 		"typescript": "*"
 	}
 }
-
