@@ -3,7 +3,7 @@ import { E_W_LIGHTS_GREEN, N_S_LIGHTS_GREEN } from './constants';
 
 import { ALL_LIGHTS_YELLOW } from '../../constants';
 import { BaseCrossingConnection } from '../base';
-import Car from '../../car';
+import Car from '../../Car';
 import Direction from '../../direction';
 import _ from 'lodash';
 
@@ -63,5 +63,9 @@ export default class CrossingConnectAhead extends BaseCrossingConnection {
 				return E_W_LIGHTS_GREEN;
 			}
 		} else return ALL_LIGHTS_YELLOW;
+	}
+
+	getDescription(): string {
+		return 'connects the opposite roads both ways at once, the most common example in real life (either: N<->S or W<->E)';
 	}
 }

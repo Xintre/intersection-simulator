@@ -81,15 +81,18 @@ export default class Intersection {
 
 	printConfig() {
 		console.log(' >> Intersection configuration printed << ');
+		console.log();
 
 		console.log(
-			`Lights change (🔴 -> 🟡, 🟡 -> 🟢, 🟡 -> 🔴) lasts ${LIGHTS_CHANGE_ROUND_TICKS} round(s)`
+			`\tLights change (🔴 -> 🟡, 🟡 -> 🟢, 🟡 -> 🔴) lasts: ${LIGHTS_CHANGE_ROUND_TICKS} round(s)`
 		);
+		console.log();
 		console.log(
-			`A car driver waits ${CAR_PASS_ROUND_TICKS} round(s) after 🟢 turns on before driving`
+			`\tA car driver waits: ${CAR_PASS_ROUND_TICKS} round(s) after 🟢 turns on before driving`
 		);
+		console.log();
 		console.log(
-			`The chosen BaseCrossingConnection implementation is: ${this.#crossingState.crossingConnection.constructor.name}, which does the following: ${this.#crossingState.crossingConnection.getDescription()}`
+			`\tThe chosen BaseCrossingConnection implementation is: ${this.#crossingState.crossingConnection.constructor.name}, which does the following:\n\t\t${this.#crossingState.crossingConnection.getDescription()}`
 		);
 
 		console.log(' >> ---------------------------------- << ');

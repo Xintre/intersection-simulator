@@ -1,6 +1,6 @@
 import { CarsStore, LightsStateRecord } from '../../types';
 
-import Car from '../../car';
+import Car from '../../Car';
 import Config from '../../config';
 import Direction from '../../direction';
 
@@ -30,11 +30,17 @@ export default abstract class BaseCrossingConnection {
 	): Set<Car>;
 
 	/**
-     * Changes intersection lights to green in direction where most cars are waiting.
-        Returns new lights_state_dict value that should be updated.
-     */
+	 * Changes intersection lights to green in direction where most cars are waiting.
+	 *
+	 * @return new lights_state_dict value that should be updated.
+	 */
 	abstract changeLights(
 		lightsStateRecord: LightsStateRecord,
 		winningDirection: Direction
 	): LightsStateRecord;
+
+	/**
+	 * Describes the behavior of this strategy
+	 */
+	abstract getDescription(): string;
 }

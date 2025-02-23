@@ -1,1 +1,1 @@
-export { default as BaseCrossingConnection } from './baseCrossingConnection';
+export { default as BaseCrossingConnection } from './BaseCrossingConnection';
