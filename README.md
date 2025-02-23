@@ -6,14 +6,20 @@ To set the project up, `Node.JS` $\geqslant 22.X$ with `yarn` is required.
 
 Please run: `yarn`.
 
+## Getting started
+
+After completing the `Setup` section, please do the following:
+
+1. Build & run the CLI app in mode reading input [`simulation/commands.json`](simulation/commands.json): `a`; you will find the JSON output both in the end of program output in the console and in [`simulation/output.json`](simulation/output.json)
+
 ## Scripts
 
+- `build` - runs parallelly `build` command in every workspace, if present
+- `test` - runs parallelly `test` command in every workspace, if present
 - `postinstall` - installs lefthook to git hooks
-- `stylecheck` - runs parallelly in each of the workspaces: `stylecheck` package.json script if applicable
+- `stylecheck` - runs parallelly `stylecheck` command in every workspace, if present
 - `python:run` - runs the prototype python script
 - `python:lint` - runs ruff in the python prototype
-- `ts:compile` - runs node tsc in intersection-api/src
-- `ts:run` - runs node main in intersection-api/src
 
 ## Git Hooks
 
@@ -30,7 +36,7 @@ This project is a monorepository using yarn to manage its workspaces and
 
 (format of listing: `path on disk` $\rightarrow$ `workspace name - field 'name' in package.json`)
 
-- `./intersection-api` $\rightarrow$ `@xintre/intersection-api`
+- `./simulation` $\rightarrow$ `@xintre/simulation`
 
 ## Testing
 

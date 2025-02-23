@@ -1,5 +1,5 @@
 {
-	"name": "@xintre/intersection-api",
+	"name": "@xintre/simulation",
 	"version": "1.0.0",
 	"main": "main.ts",
 	"scripts": {
