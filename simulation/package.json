@@ -6,12 +6,12 @@
 		"test": "npx jest",
 		"stylecheck": "npx prettier --check src/",
 		"build": "tsc",
-		"dev:cli": "npx tsx src/cli/index.ts",
-		"dev:cli-random": "npx tsx src/cli/index.ts random",
-		"dev:server": "npx tsx src/server/index.ts",
-		"start:cli": "node build/cli/index.js",
-		"start:cli-random": "node build/cli/index.js random",
-		"start:server": "node build/server/index.js"
+		"dev:cli": "npx tsx src/cli simulate",
+		"dev:cli-random": "npx tsx src/cli random",
+		"dev:server": "npx tsx src/server",
+		"start:cli": "node build/cli simulate",
+		"start:cli-random": "node build/cli random",
+		"start:server": "node build/server"
 	},
 	"author": "Xintre",
 	"license": "ISC",

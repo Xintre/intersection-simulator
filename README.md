@@ -20,6 +20,11 @@ After completing the `Setup` section, please do the following:
    - for Android: `yarn workspace @xintre/simulation run android`
    - for iOS: `yarn workspace @xintre/simulation run ios`
 
+Please also read:
+
+- Simulation module's [`README.md`](./simulation/README.md), documenting the CLI, server, logic and additional scripts related to them
+- React Native app's [`README.md`](./app/README.md)
+
 ## Scripts
 
 - `build` - runs parallelly `build` command in every workspace, if present

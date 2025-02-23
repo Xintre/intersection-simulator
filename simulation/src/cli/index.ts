@@ -10,105 +10,130 @@ import {
 	translateDirection,
 } from '../crossingLogic';
 
-export default async function asyncMain() {
-	const isRandomMode = process.argv.includes('--random');
+import { hideBin } from 'yargs/helpers';
+import yargs from 'yargs';
 
-	let intersection = new Intersection(
-		CrossingConnectAhead,
-		MostCarsWinSwitchingStrategy
-	);
+let intersection = new Intersection(
+	CrossingConnectAhead,
+	MostCarsWinSwitchingStrategy
+);
 
-	if (isRandomMode) {
-		// "random" mode - will run random cars
+yargs(hideBin(process.argv))
+	.command(
+		'simulate [input] [output]',
+		'run the crossroads simulation, program exits when input ends',
+		(yargs) => {
+			return yargs
+				.positional('input', {
+					describe: 'input commands JSON file',
+					default: 'commands.json',
+				})
+				.positional('output', {
+					describe: 'program output JSON file',
+					default: 'output.json',
+				});
+		},
+		async (argv) => {
+			// commands mode (json input + no delay between rounds, rounds controlled by commands)
 
-		console.log(
-			"Running in 'random' mode (random cars spawned + delay between rounds)"
-		);
+			console.log("Running in 'commands' mode (no delay + json reading)");
 
-		for (let i: number = 0; i < 5; i++) {
-			intersection.addRandomCar();
-		}
+			const input = JSON.parse(
+				fs.readFileSync(argv.input, {
+					encoding: 'utf8',
+				})
+			) as IO.CommandsInput;
 
-		intersection.printConfig();
+			const output: IO.ProgramOutput = { stepStatuses: [] };
 
-		while (true) {
-			try {
-				intersection.run();
-			} catch (e: unknown) {
-				if (e instanceof SimulationEnd) {
-					console.log('Simulation finished!');
-					break;
+			intersection.printConfig();
+
+			for (const command of input.commands) {
+				try {
+					console.log('Processing command', command);
+
+					switch (command.type) {
+						case 'addVehicle':
+							intersection.addCar(
+								new Car(
+									command.vehicleId,
+									translateDirection(command.startRoad),
+									translateDirection(command.endRoad)
+								)
+							);
+							break;
+
+						case 'step':
+							const carsExitedThisRound = intersection.run();
+
+							output.stepStatuses.push({
+								leftVehicles: Array.from(
+									carsExitedThisRound
+								).map((car) => car.carID),
+							});
+
+							break;
+					}
+
+					console.log();
+				} catch (e: unknown) {
+					if (e instanceof SimulationEnd) {
+						// silence the error - we want to run forever in this mode
+					} else {
+						// make other errors happen
+						throw e;
+					}
 				}
 			}
 
-			await new Promise((r) => setTimeout(r, 1500));
-		}
-	} else {
-		// commands.json mode (json input + no delay between rounds, rounds controlled by commands)
+			const stringifiedOutput = JSON.stringify(output, null, 2);
 
-		console.log(
-			"Running in 'commands.json' mode (no delay + json reading)"
-		);
+			console.log(
+				` >> Program output in required format (also written to '${argv.output}') << `
+			);
+			console.log(stringifiedOutput);
 
-		const input = JSON.parse(
-			fs.readFileSync('commands.json', {
+			fs.writeFileSync(argv.output, stringifiedOutput, {
 				encoding: 'utf8',
-			})
-		) as IO.CommandsInput;
+			});
+		}
+	)
+	.command(
+		'random',
+		'runs in random mode (adding random cars & running until all exit the crossing), ignoring the input positional option',
+		(yargs) => {
+			return yargs.positional('output', {
+				describe: 'program output JSON file',
+				default: 'output.json',
+			});
+		},
+		async (_argv) => {
+			// "random" mode - will run random cars
 
-		const output: IO.ProgramOutput = { stepStatuses: [] };
+			console.log(
+				"Running in 'random' mode (random cars spawned + delay between rounds)"
+			);
 
-		intersection.printConfig();
+			for (let i: number = 0; i < 5; i++) {
+				intersection.addRandomCar();
+			}
 
-		for (const command of input.commands) {
-			try {
-				console.log('Processing command', command);
+			intersection.printConfig();
 
-				switch (command.type) {
-					case 'addVehicle':
-						intersection.addCar(
-							new Car(
-								command.vehicleId,
-								translateDirection(command.startRoad),
-								translateDirection(command.endRoad)
-							)
-						);
+			while (true) {
+				try {
+					intersection.run();
+				} catch (e: unknown) {
+					if (e instanceof SimulationEnd) {
+						console.log('Simulation finished!');
 						break;
-
-					case 'step':
-						const carsExitedThisRound = intersection.run();
-
-						output.stepStatuses.push({
-							leftVehicles: Array.from(carsExitedThisRound).map(
-								(car) => car.carID
-							),
-						});
-
-						break;
+					}
 				}
 
-				console.log();
-			} catch (e: unknown) {
-				if (e instanceof SimulationEnd) {
-					// silence the error - we want to run forever in this mode
-				} else {
-					// make other errors happen
-					throw e;
-				}
+				await new Promise((r) => setTimeout(r, 1500));
 			}
 		}
-
-		const stringifiedOutput = JSON.stringify(output, null, 2);
-
-		console.log(
-			" >> Program output in required format (also written to 'output.json') << "
-		);
-		console.log(stringifiedOutput);
-
-		fs.writeFileSync('output.json', stringifiedOutput, {
-			encoding: 'utf8',
-		});
-	}
-}
-
-asyncMain();
+	)
+	.demandCommand(1)
+	.help()
+	.parse();
