@@ -3,8 +3,8 @@ import { CarsStore, LightsStateRecord } from './types';
 import Direction from './direction';
 import LightState from './lightState';
 
-export const ONE_ROUND_CLOCK_TICKS: number = 3;
-export const CAR_PASS_CLOCK_TICKS: number = 2;
+export const LIGHTS_CHANGE_ROUND_TICKS: number = 2;
+export const CAR_PASS_ROUND_TICKS: number = 1;
 
 export let STARTING_CARS_COUNTER: CarsStore = {
 	[Direction.N]: new Set(),

@@ -15,4 +15,4 @@ export type StepCommand = CommandBase & {
 
 type AllCommands = AddVehicleCommand | StepCommand;
 
-export type CommandsSeries = Array<AllCommands>;
+export type CommandsInput = { commands: AllCommands[] };

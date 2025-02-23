@@ -29,6 +29,8 @@ export default async function asyncMain() {
 			intersection.addRandomCar();
 		}
 
+		intersection.printConfig();
+
 		while (true) {
 			try {
 				intersection.run();
@@ -48,47 +50,64 @@ export default async function asyncMain() {
 			"Running in 'commands.json' mode (no delay + json reading)"
 		);
 
-		const commands = JSON.parse(
+		const input = JSON.parse(
 			fs.readFileSync('commands.json', {
 				encoding: 'utf8',
 			})
-		) as IO.CommandsSeries;
+		) as IO.CommandsInput;
 
 		const output: IO.ProgramOutput = { stepStatuses: [] };
 
-		while (true) {
+		intersection.printConfig();
+
+		for (const command of input.commands) {
 			try {
-				for (const command of commands) {
-					switch (command.type) {
-						case 'addVehicle':
-							intersection.addCar(
-								new Car(
-									command.vehicleId,
-									translateDirection(command.startRoad),
-									translateDirection(command.endRoad)
-								)
-							);
-							break;
+				console.log('Processing command', command);
 
-						case 'step':
-							const carsExitedThisRound = intersection.run();
+				switch (command.type) {
+					case 'addVehicle':
+						intersection.addCar(
+							new Car(
+								command.vehicleId,
+								translateDirection(command.startRoad),
+								translateDirection(command.endRoad)
+							)
+						);
+						break;
 
-							output.stepStatuses.push({
-								leftVehicles: Array.from(
-									carsExitedThisRound
-								).map((car) => car.carID),
-							});
+					case 'step':
+						const carsExitedThisRound = intersection.run();
 
-							break;
-					}
+						output.stepStatuses.push({
+							leftVehicles: Array.from(carsExitedThisRound).map(
+								(car) => car.carID
+							),
+						});
+
+						break;
 				}
+
+				console.log();
 			} catch (e: unknown) {
 				if (e instanceof SimulationEnd) {
-					console.log('Simulation finished!');
-					break;
+					// silence the error - we want to run forever in this mode
+				} else {
+					// make other errors happen
+					throw e;
 				}
 			}
 		}
+
+		const stringifiedOutput = JSON.stringify(output, null, 2);
+
+		console.log(
+			" >> Program output in required format (also written to 'output.json') << "
+		);
+		console.log(stringifiedOutput);
+
+		fs.writeFileSync('output.json', stringifiedOutput, {
+			encoding: 'utf8',
+		});
 	}
 }
 

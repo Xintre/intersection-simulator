@@ -1,8 +1,8 @@
-import { CAR_PASS_CLOCK_TICKS, ONE_ROUND_CLOCK_TICKS } from './constants';
+import { CAR_PASS_ROUND_TICKS, LIGHTS_CHANGE_ROUND_TICKS } from './constants';
 
 import { BaseCrossingConnection } from './crossingConnection/base';
 import { BaseSwitchingStrategy } from './switchingStrategy/base';
-import Car from './car';
+import Car from './Car';
 import Config from './config';
 import CrossingState from './crossingState';
 import Direction from './direction';
@@ -59,7 +59,7 @@ export default class Intersection {
 				this.#crossingState
 			);
 
-		if (this.#config.roundCt >= ONE_ROUND_CLOCK_TICKS) {
+		if (this.#config.roundCt >= LIGHTS_CHANGE_ROUND_TICKS) {
 			this.#crossingState.changeLights(
 				(winningDirection = winningDirection)
 			);
@@ -67,7 +67,7 @@ export default class Intersection {
 			this.#config.roundCt = 0;
 		}
 
-		if (this.#config.roundCt >= CAR_PASS_CLOCK_TICKS) {
+		if (this.#config.roundCt >= CAR_PASS_ROUND_TICKS) {
 			carsExitedThisRound = this.#crossingState.moveCars(
 				this.#crossingState.carsStore
 			);
@@ -77,5 +77,21 @@ export default class Intersection {
 		this.#simRoundCt++;
 
 		return carsExitedThisRound;
+	}
+
+	printConfig() {
+		console.log(' >> Intersection configuration printed << ');
+
+		console.log(
+			`Lights change (🔴 -> 🟡, 🟡 -> 🟢, 🟡 -> 🔴) lasts ${LIGHTS_CHANGE_ROUND_TICKS} round(s)`
+		);
+		console.log(
+			`A car driver waits ${CAR_PASS_ROUND_TICKS} round(s) after 🟢 turns on before driving`
+		);
+		console.log(
+			`The chosen BaseCrossingConnection implementation is: ${this.#crossingState.crossingConnection.constructor.name}, which does the following: ${this.#crossingState.crossingConnection.getDescription()}`
+		);
+
+		console.log(' >> ---------------------------------- << ');
 	}
 }

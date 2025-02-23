@@ -2,7 +2,7 @@ export * from './crossingConnection';
 
 export * from './switchingStrategy';
 
-export { default as Car } from './car';
+export { default as Car } from './Car';
 
 export { default as LightState } from './lightState';
 

@@ -1,4 +1,4 @@
-import Car from './car';
+import Car from './Car';
 import Direction from './direction';
 import LightState from './lightState';
 

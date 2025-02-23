@@ -1,7 +1,7 @@
 import { CarsStore, LightsStateRecord } from './types';
 
 import { BaseCrossingConnection } from './crossingConnection/base';
-import Car from './car';
+import Car from './Car';
 import Config from './config';
 import Direction from './direction';
 import { STARTING_CARS_COUNTER } from './constants';
@@ -19,10 +19,10 @@ export default class CrossingState {
 	constructor(
 		CrossingConnectionImplementation: new () => BaseCrossingConnection
 	) {
-		(this.config = Config.instance),
-			(this.crossingConnection = new CrossingConnectionImplementation()),
-			(this.lightsStateRecord =
-				this.crossingConnection.getInitialLightsState());
+		this.config = Config.instance;
+		this.crossingConnection = new CrossingConnectionImplementation();
+		this.lightsStateRecord =
+			this.crossingConnection.getInitialLightsState();
 		this.carsStore = _.cloneDeep(STARTING_CARS_COUNTER);
 	}
 
