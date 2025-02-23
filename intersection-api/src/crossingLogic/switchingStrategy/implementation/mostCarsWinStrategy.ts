@@ -7,8 +7,8 @@ import Direction from '../../direction';
  */
 export default class MostCarsWinSwitchingStrategy extends BaseSwitchingStrategy {
 	calculateWinningDirection(crossingState: CrossingState): Direction {
-		return Object.entries(crossingState.carsCounterRecord)
-			.sort(([, countA], [, countB]) => countB - countA)
+		return Object.entries(crossingState.carsStore)
+			.sort(([, carsA], [, carsB]) => carsB.size - carsA.size)
 			.map(([direction]) => direction)[0] as Direction;
 	}
 }

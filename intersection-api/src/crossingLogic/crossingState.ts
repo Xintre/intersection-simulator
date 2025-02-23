@@ -1,4 +1,4 @@
-import { CarsCounterRecord, LightsStateRecord } from './types';
+import { CarsStore, LightsStateRecord } from './types';
 
 import { BaseCrossingConnection } from './crossingConnection/base';
 import Car from './car';
@@ -12,7 +12,7 @@ import _ from 'lodash';
  */
 export default class CrossingState {
 	lightsStateRecord: LightsStateRecord;
-	carsCounterRecord: CarsCounterRecord;
+	carsStore: CarsStore;
 	crossingConnection: BaseCrossingConnection;
 	config: Config;
 
@@ -23,15 +23,15 @@ export default class CrossingState {
 			(this.crossingConnection = new CrossingConnectionImplementation()),
 			(this.lightsStateRecord =
 				this.crossingConnection.getInitialLightsState());
-		this.carsCounterRecord = _.cloneDeep(STARTING_CARS_COUNTER);
+		this.carsStore = _.cloneDeep(STARTING_CARS_COUNTER);
 	}
 
 	toString(): string {
 		this.showLights();
 		return [
 			'Crossing state:',
-			...Object.entries(this.carsCounterRecord).map(
-				([direction, carNumber]) => `${direction}: ${carNumber}🚗`
+			...Object.entries(this.carsStore).map(
+				([direction, cars]) => `${direction}: ${cars.size}🚗`
 			),
 		].join('\n');
 	}
@@ -46,20 +46,25 @@ export default class CrossingState {
 	}
 
 	addCar(car: Car): void {
-		this.carsCounterRecord[car.start]++;
+		this.carsStore[car.start].add(car);
 	}
 
-	moveCars(carsCounterRecord: CarsCounterRecord): void {
-		this.crossingConnection.moveCars(
+	/**
+	 * Moves cars around the map according to crossing connection implementation's logic
+	 *
+	 * @return set of cars that exited the crossing this round
+	 */
+	moveCars(carsStore: CarsStore): Set<Car> {
+		return this.crossingConnection.moveCars(
 			this.lightsStateRecord,
-			carsCounterRecord
+			carsStore
 		);
 	}
 
 	checkIfThereAreAnyCars(): boolean {
 		return (
-			Object.values(this.carsCounterRecord).reduce(
-				(acc, val) => acc + val,
+			Object.values(this.carsStore).reduce(
+				(acc, cars) => acc + cars.size,
 				0
 			) === 0
 		);
@@ -68,6 +73,8 @@ export default class CrossingState {
 	addRandomCar(): void {
 		this.addCar(
 			new Car(
+				Math.floor(Math.random() * 100).toString(),
+				// this.config.roundCt.toString(),
 				_.sample(Object.values(Direction)) as Direction,
 				_.sample(Object.values(Direction)) as Direction
 			)

@@ -1,5 +1,6 @@
-import { CarsCounterRecord, LightsStateRecord } from '../../types';
+import { CarsStore, LightsStateRecord } from '../../types';
 
+import Car from '../../car';
 import Config from '../../config';
 import Direction from '../../direction';
 
@@ -8,14 +9,26 @@ import Direction from '../../direction';
  */
 export default abstract class BaseCrossingConnection {
 	protected config: Config;
+
 	constructor() {
 		this.config = Config.instance;
 	}
+
 	abstract getInitialLightsState(): LightsStateRecord;
+
+	/**
+	 * Moves cars around the map according to crossing connection implementation's logic
+	 *
+	 * @param lightsStateRecord the record of lights state to read
+	 * @param carsStore the store of cars on each road
+	 *
+	 * @return set of cars that exited the crossing this round
+	 */
 	abstract moveCars(
 		lightsStateRecord: LightsStateRecord,
-		carsCounterRecord: CarsCounterRecord
-	): void;
+		carsStore: CarsStore
+	): Set<Car>;
+
 	/**
      * Changes intersection lights to green in direction where most cars are waiting.
         Returns new lights_state_dict value that should be updated.

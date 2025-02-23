@@ -1,8 +1,9 @@
-import { CarsCounterRecord, LightsStateRecord } from '../../types';
+import { CarsStore, LightsStateRecord } from '../../types';
 import { E_W_LIGHTS_GREEN, N_S_LIGHTS_GREEN } from './constants';
 
 import { ALL_LIGHTS_YELLOW } from '../../constants';
 import { BaseCrossingConnection } from '../base';
+import Car from '../../car';
 import Direction from '../../direction';
 import _ from 'lodash';
 
@@ -10,19 +11,41 @@ export default class CrossingConnectAhead extends BaseCrossingConnection {
 	getInitialLightsState(): LightsStateRecord {
 		return N_S_LIGHTS_GREEN;
 	}
+
+	/**
+	 * Teleports cars across the direction that is currently green,
+	 * moving them away from the crossing in one round
+	 *
+	 * @param lightsStateRecord the record of lights state to read
+	 * @param carsStore the store of cars on each road
+	 *
+	 * @return set of cars that exited the crossing this round
+	 */
 	moveCars(
 		lightsStateRecord: LightsStateRecord,
-		carsCounterRecord: CarsCounterRecord
-	): void {
+		carsStore: CarsStore
+	): Set<Car> {
+		let carsExited = new Set<Car>();
+
+		let directionsToTeleportForward: Direction[] = [];
+
 		if (_.isEqual(lightsStateRecord, N_S_LIGHTS_GREEN)) {
-			carsCounterRecord[Direction.N] = 0;
-			carsCounterRecord[Direction.S] = 0;
+			directionsToTeleportForward = [Direction.N, Direction.S];
+		} else if (_.isEqual(lightsStateRecord, E_W_LIGHTS_GREEN)) {
+			directionsToTeleportForward = [Direction.W, Direction.E];
 		}
-		if (_.isEqual(lightsStateRecord, E_W_LIGHTS_GREEN)) {
-			carsCounterRecord[Direction.W] = 0;
-			carsCounterRecord[Direction.E] = 0;
+
+		for (const directionKey of directionsToTeleportForward) {
+			for (const car of carsStore[directionKey]) {
+				carsExited.add(car);
+			}
+
+			carsStore[directionKey].clear();
 		}
+
+		return carsExited;
 	}
+
 	changeLights(
 		lightsStateRecord: LightsStateRecord,
 		winningDirection: Direction
