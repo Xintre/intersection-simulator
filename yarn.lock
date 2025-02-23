@@ -967,7 +967,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/yargs@npm:^17.0.8":
+"@types/yargs@npm:^17.0.33, @types/yargs@npm:^17.0.8":
   version: 17.0.33
   resolution: "@types/yargs@npm:17.0.33"
   dependencies:
@@ -1001,9 +1001,11 @@ __metadata:
   resolution: "@xintre/simulation@workspace:simulation"
   dependencies:
     "@types/node": "npm:^22.13.4"
+    "@types/yargs": "npm:^17.0.33"
     jest: "npm:*"
     prettier: "npm:*"
     typescript: "npm:*"
+    yargs: "npm:^17.7.2"
   languageName: unknown
   linkType: soft
 
@@ -4375,7 +4377,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs@npm:^17.3.1":
+"yargs@npm:^17.3.1, yargs@npm:^17.7.2":
   version: 17.7.2
   resolution: "yargs@npm:17.7.2"
   dependencies:

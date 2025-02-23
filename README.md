@@ -10,7 +10,15 @@ Please run: `yarn`.
 
 After completing the `Setup` section, please do the following:
 
-1. Build & run the CLI app in mode reading input [`simulation/commands.json`](simulation/commands.json): `a`; you will find the JSON output both in the end of program output in the console and in [`simulation/output.json`](simulation/output.json)
+1. Build & run the CLI app in mode reading input [`simulation/commands.json`](simulation/commands.json):
+   - `yarn workspace @xintre/simulation run build`
+   - `yarn workspace @xintre/simulation run start:cli`
+   - you will find the JSON output both in the end of program output in the console and in [`simulation/output.json`](simulation/output.json)
+2. Run the server (do not close it):
+   - `yarn workspace @xintre/simulation run start:server`
+3. Run the React Native app (in another terminal):
+   - for Android: `yarn workspace @xintre/simulation run android`
+   - for iOS: `yarn workspace @xintre/simulation run ios`
 
 ## Scripts
 
