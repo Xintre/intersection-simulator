@@ -1,14 +1,14 @@
 import {
 	CrossingConnectAhead,
-	IO,
 	Intersection,
 	MostCarsWinSwitchingStrategy,
 	SimulationEnd,
 } from '../crossingLogic';
 
+import { IO } from '../shared';
 import express from 'express';
 import helmet from 'helmet';
-import { processCommand } from '../shared';
+import { processCommand } from '../shared/processCommand';
 
 const app = express();
 const port = 8000;

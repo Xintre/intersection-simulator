@@ -12,8 +12,6 @@ export { default as CrossingState } from './crossingState';
 
 export { SimulationEnd } from './errors';
 
-export * as IO from './io';
-
 export * from './types';
 
 export { default as Intersection } from './intersection';

@@ -2,11 +2,11 @@ import * as fs from 'fs';
 
 import {
 	CrossingConnectAhead,
-	IO,
 	Intersection,
 	MostCarsWinSwitchingStrategy,
 	SimulationEnd,
 } from '../crossingLogic';
+import { type IO } from '../shared';
 
 import { hideBin } from 'yargs/helpers';
 import { processCommand } from '../shared';

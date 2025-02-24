@@ -1,3 +1,5 @@
+import { IO } from '../shared';
+
 export enum Direction {
 	N = 'N',
 	E = 'E',
@@ -5,12 +7,25 @@ export enum Direction {
 	W = 'W',
 }
 
-export function translateDirection(directionFromJSON: string): Direction {
-	if (directionFromJSON === 'north') return Direction.N;
-	if (directionFromJSON === 'east') return Direction.E;
-	if (directionFromJSON === 'south') return Direction.S;
-	// directionFromJSON === 'west'
-	return Direction.W;
+export function translateDirection(
+	directionFromJSON: IO.JsonDirection
+): Direction {
+	switch (directionFromJSON) {
+		case 'north':
+			return Direction.N;
+
+		case 'east':
+			return Direction.E;
+
+		case 'south':
+			return Direction.S;
+
+		case 'west':
+			return Direction.W;
+
+		default:
+			throw new Error('Invalid direction: ' + directionFromJSON);
+	}
 }
 
 export default Direction;

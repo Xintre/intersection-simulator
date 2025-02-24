@@ -2,11 +2,18 @@ type CommandBase = {
 	type: 'addVehicle' | 'step';
 };
 
+export enum JsonDirection {
+	N = 'north',
+	S = 'south',
+	E = 'east',
+	W = 'west',
+}
+
 export type AddVehicleCommand = CommandBase & {
 	type: 'addVehicle';
 	vehicleId: string;
-	startRoad: string;
-	endRoad: string;
+	startRoad: JsonDirection;
+	endRoad: JsonDirection;
 };
 
 export type StepCommand = CommandBase & {
