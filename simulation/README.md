@@ -101,3 +101,19 @@ Options:
   --version  Show version number                                       [boolean]
   --help     Show help                                                 [boolean]
 ```
+
+## Technical description
+
+This project is a monorepository using yarn to manage its workspaces and provides scripts in separate `package.json`s across workspaces.
+
+The stack is as follows:
+
+- React Native app:
+    - React Native
+    -
+
+## Testing
+
+This project uses `jest` to run its tests with `ts-jest` to add support for Typescript. Coverage tracking is enabled and outputs its reports in: `json`, `text-summary` (terminal) and `html` files, as configured in [`jest.config.js`](./jest.config.js).
+
+To run tests, simply execute `yarn test` and find the summary & coverage in both the terminal and additionally a full coverage report in HTML format inside [`coverage/index.html`](./coverage/index.html).

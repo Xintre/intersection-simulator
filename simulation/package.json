@@ -18,12 +18,8 @@
 	"description": "",
 	"devDependencies": {
 		"@types/node": "^22.13.4",
-		"@types/yargs": "^17.0.33",
 		"jest": "*",
 		"prettier": "*",
 		"typescript": "*"
-	},
-	"dependencies": {
-		"yargs": "^17.7.2"
 	}
 }

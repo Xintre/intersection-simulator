@@ -43,19 +43,33 @@ This project uses `lefthook` to organize its git hooks:
 
 ## Technical description
 
-This project is a monorepository using yarn to manage its workspaces and
+This project is a monorepository using yarn to manage its workspaces and provides scripts in separate `package.json`s across workspaces.
+
+The stack is as follows:
+
+- React Native app:
+  - `react-native`
+  - `axios`
+  - `react-native-paper`
+  - `react-native-vector-icons`
+- Simulation API
+  - `lodash`
+  - `yargs`
+  - `helmet`
+  - `express`
+
+And:
+
+- `jest` + `ts-jest` for TS support
+- `typescript`
+- `lefthook` for GIT Hooks
+- `prettier` as the formatter
 
 ## Workspaces
 
 (format of listing: `path on disk` $\rightarrow$ `workspace name - field 'name' in package.json`)
 
 - `./simulation` $\rightarrow$ `@xintre/simulation`
-
-## Testing
-
-This project uses `jest` to run its tests with `ts-jest` to add support for Typescript. Coverage tracking is enabled and outputs its reports in: `json`, `text-summary` (terminal) and `html` files, as configured in [`jest.config.js`](./jest.config.js).
-
-To run tests, simply execute `npm test` and find the summary & coverage in both the terminal and additionally a full coverage report in HTML format inside [`coverage/index.html`](./coverage/index.html).
 
 ## Code style
 
