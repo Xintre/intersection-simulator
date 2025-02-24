@@ -1,5 +1,7 @@
 # intersection-simulator
 
+![example workflow](https://github.com/Xintre/intersection-simulator/actions/workflows/ci.yml/badge.svg)
+
 ## Setup
 
 To set the project up, `Node.JS` $\geqslant 22.X$ with `yarn` is required.
