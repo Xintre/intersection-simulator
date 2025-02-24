@@ -4,7 +4,9 @@
 
 To set the project up, `Node.JS` $\geqslant 22.X$ with `yarn` is required.
 
-Please run: `yarn`.
+**Please run: `yarn`.**
+
+Since I didn't finish adjusting the React Native app to work with a monorepo setup, for now it is a separate project. **You also need to run `cd app && yarn`.**
 
 ## Getting started
 
