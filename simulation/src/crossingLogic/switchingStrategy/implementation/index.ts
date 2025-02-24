@@ -1,1 +1,1 @@
-export { default as MostCarsWinSwitchingStrategy } from './mostCarsWinStrategy';
+export { default as MostCarsWinSwitchingStrategy } from './MostCarsWinStrategy';
