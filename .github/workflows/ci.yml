@@ -5,9 +5,9 @@ on:
     branches:
 
 jobs:
-  lint:
+  lint-and-test:
     runs-on: ubuntu-latest
-    name: "Format project files"
+    name: "Format project files and run tests"
 
     steps:
       - name: Checkout
