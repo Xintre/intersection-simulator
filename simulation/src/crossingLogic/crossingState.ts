@@ -53,7 +53,7 @@ export default class CrossingState {
 					directionKey,
 					Array.from(cars),
 				])
-			),
+			) as Record<Direction, Car[]>,
 		};
 	}
 
