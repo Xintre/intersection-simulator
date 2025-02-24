@@ -35,6 +35,14 @@ export default class Intersection {
 		this.#crossingState.addRandomCar();
 	}
 
+	getState() {
+		return {
+			simRoundCt: this.#simRoundCt,
+			graceCt: Math.min(this.#config.roundCt, LIGHTS_CHANGE_ROUND_TICKS), // lights may not change in some cases (e.g. 0 cars everywhere) but the counter could be incremented; this is to avoid e.g. 10/8
+			...this.#crossingState.getState(),
+		};
+	}
+
 	/**
 	 * Runs the next round
 	 * @return `Car`s which left the intersection this round
@@ -49,7 +57,8 @@ export default class Intersection {
 		}
 
 		console.log(
-			`==================== Round ${this.#simRoundCt}, grace counter: ${this.#config.roundCt} ====================`
+			// Math.min below: lights may not change in some cases (e.g. 0 cars everywhere) but the counter could be incremented; this is to avoid e.g. 10/8
+			`==================== Round ${this.#simRoundCt}, lights change cooldown: ${Math.min(this.#config.roundCt, LIGHTS_CHANGE_ROUND_TICKS)} / ${LIGHTS_CHANGE_ROUND_TICKS} ====================`
 		);
 		console.log(this.#crossingState.toString());
 

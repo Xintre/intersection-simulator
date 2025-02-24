@@ -1,0 +1,73 @@
+{
+	"info": {
+		"_postman_id": "dcee7a96-73c1-4cb3-8f00-7b3c5c782cf7",
+		"name": "Crossroads Simulator API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37833133"
+	},
+	"item": [
+		{
+			"name": "Get state (/api/state)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/state",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8000",
+					"path": ["api", "state"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add car (/api/command)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"addVehicle\",\r\n    \"vehicleId\": \"vehicle1\",\r\n    \"startRoad\": \"south\",\r\n    \"endRoad\": \"north\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/command",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8000",
+					"path": ["api", "command"]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Step simulation round (/api/command)",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"step\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/command",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8000",
+					"path": ["api", "command"]
+				}
+			},
+			"response": []
+		}
+	]
+}

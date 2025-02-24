@@ -13,6 +13,6 @@ export type StepCommand = CommandBase & {
 	type: 'step';
 };
 
-type AllCommands = AddVehicleCommand | StepCommand;
+export type AllCommands = AddVehicleCommand | StepCommand;
 
 export type CommandsInput = { commands: AllCommands[] };

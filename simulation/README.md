@@ -17,9 +17,68 @@ This is an API server that directs car traffic on a crossroad.
     - `dev:server` - runs directly from TS source files using `tsx`
     - `start:server` - runs from `build/` transpiled JS files; **requires `build` to be run first!**
 
-## CLI options
+## API server
 
-The CLI is built using `yargs`. It is possible to just run it with `--help` or without any positional command for it to print help.
+The API server is built using `express`. It serves a REST API on port `8000` and can be run using either:
+
+1. After running `yarn build` from JS transpiled files: `yarn start:server`
+2. From TS files with `tsx`: `yarn dev:server`
+
+### Postman collection
+
+To test the API, I prepared a [Postman](https://www.postman.com/) collection [`API.postman_collection.json`](./API.postman_collection.json) that can easily be imported into the program.
+
+### API specification
+
+The API has the following endpoints:
+
+- `GET /` - returns a simple welcome message
+- `GET /api/state` - returns the current state of the simulation
+    - Request body: N/A
+    - Response body:
+        ```typescript
+        {
+            "simRoundCt": 0;
+            "graceCt": 0;
+            "lightsState": Record<"N" | "S" | "E" | "W", "🟢" | "🟡" | "🔴">;
+            "carsStore": Record<"N" | "S" | "E" | "W", {
+                carID: string;
+                start: string;
+                destination: string;
+                roundCt: number;
+            }[]>;
+        }
+        ```
+- `POST /api/command` - runs the simulation with the provided commands
+    - Request body:
+        ```typescript
+        {
+        	type: 'addVehicle';
+        	vehicleId: string;
+        	startRoad: string;
+        	endRoad: string;
+        } | {
+        	type: 'step';
+        }
+        ```
+    - Response body:
+        ```typescript
+        {
+            "simRoundCt": 0;
+            "graceCt": 0;
+            "lightsState": Record<"N" | "S" | "E" | "W", "🟢" | "🟡" | "🔴">;
+            "carsStore": Record<"N" | "S" | "E" | "W", {
+                carID: string;
+                start: string;
+                destination: string;
+                roundCt: number;
+            }[]>;
+        }
+        ```
+
+## CLI runner
+
+The CLI standalone simulation runner is built using `yargs`. It is possible to just run it with `--help` or without any positional command for it to print help.
 
 To run the CLI manually, do it either:
 

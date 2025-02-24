@@ -45,6 +45,18 @@ export default class CrossingState {
 		);
 	}
 
+	getState() {
+		return {
+			lightsState: this.lightsStateRecord,
+			carsStore: _.fromPairs(
+				Object.entries(this.carsStore).map(([directionKey, cars]) => [
+					directionKey,
+					Array.from(cars),
+				])
+			),
+		};
+	}
+
 	addCar(car: Car): void {
 		this.carsStore[car.start].add(car);
 	}

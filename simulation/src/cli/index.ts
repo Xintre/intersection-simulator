@@ -1,16 +1,15 @@
 import * as fs from 'fs';
 
 import {
-	Car,
 	CrossingConnectAhead,
 	IO,
 	Intersection,
 	MostCarsWinSwitchingStrategy,
 	SimulationEnd,
-	translateDirection,
 } from '../crossingLogic';
 
 import { hideBin } from 'yargs/helpers';
+import { processCommand } from '../shared';
 import yargs from 'yargs';
 
 let intersection = new Intersection(
@@ -51,30 +50,7 @@ yargs(hideBin(process.argv))
 			for (const command of input.commands) {
 				try {
 					console.log('Processing command', command);
-
-					switch (command.type) {
-						case 'addVehicle':
-							intersection.addCar(
-								new Car(
-									command.vehicleId,
-									translateDirection(command.startRoad),
-									translateDirection(command.endRoad)
-								)
-							);
-							break;
-
-						case 'step':
-							const carsExitedThisRound = intersection.run();
-
-							output.stepStatuses.push({
-								leftVehicles: Array.from(
-									carsExitedThisRound
-								).map((car) => car.carID),
-							});
-
-							break;
-					}
-
+					processCommand(intersection, command, output);
 					console.log();
 				} catch (e: unknown) {
 					if (e instanceof SimulationEnd) {
